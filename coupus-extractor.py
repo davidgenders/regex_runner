@@ -1,11 +1,10 @@
-import pandas as pd
 import json
 import os
 import rstr
-import random
-from xeger import Xeger
 import re
+from xeger import Xeger
 
+# Function to generate an invalid string that does not match a given pattern
 def generate_invalid_string(pattern, max_attempts=1000):
     compiled_pattern = re.compile(pattern)
     attempts = 0
@@ -22,44 +21,41 @@ def generate_invalid_string(pattern, max_attempts=1000):
 
     raise ValueError("Failed to generate an invalid string within the max attempts.")
 
-
 # JSON file name
 file_name = 'uniq-regexes-8.json'
 
-# Initialize an empty list to store patterns
-regex_patterns = []
+# Initialize an empty list to store patterns with their valid and invalid strings
+patterns_with_strings = []
+
+x = Xeger()
 
 # Open the file and load each line as a JSON object
 with open(file_name, 'r') as f:
     for line in f:
         json_obj = json.loads(line.strip())  # Parse each line as JSON
         pattern = json_obj.get('pattern')   # Extract the pattern
-        
-        # Add to list only if the pattern is a string
+
+        # Process only if the pattern is a string
         if isinstance(pattern, str):
-            regex_patterns.append(pattern)
+            try:
+                # Generate a valid string from the regex
+                # 
+                # valid_string = x.xeger(pattern)
 
-# Create a DataFrame with the initial patterns
-df = pd.DataFrame({
-    'Pattern': regex_patterns,
-    'Valid String': [None] * len(regex_patterns),
-    'Invalid String': [None] * len(regex_patterns)
-})
-# x = Xeger()
+                # # Generate an invalid string by slightly modifying the valid one
+                # invalid_string = generate_invalid_string(pattern)
 
-# # Generate valid and invalid strings for each regex pattern
-# for index, pattern in enumerate(regex_patterns):
-#     try:
-#         # Generate a valid string from the regex
-#         valid_string = x.xeger(pattern)
-#         df.at[index, 'Valid String'] = valid_string
-        
-#         # Generate an invalid string by slightly modifying the valid one
-#         invalid_string = generate_invalid_string(pattern)
-#         df.at[index, 'Invalid String'] = invalid_string
-#     except Exception as e:
-#         # Skip patterns that cannot be processed
-#         print(f"Skipping pattern due to error: {pattern}, Error: {e}")
+                # Add the pattern with valid and invalid strings to the list
+                patterns_with_strings.append({
+                    'Pattern': pattern,
+                    # 'Valid String': valid_string,
+                    # 'Invalid String': invalid_string
+                })
+            except Exception as e:
+                # Skip patterns that cannot be processed
+                print(f"Skipping pattern due to error: {pattern}, Error: {e}")
 
-# Save the DataFrame to a JSON file
-df.to_json(os.path.join("regexes_with_strings.json"), force_ascii=False, errors='ignore')
+# Save the list of patterns with strings to a JSON file
+output_file = 'regexes_with_strings.json'
+with open(output_file, 'w', encoding='utf-8') as f:
+    json.dump(patterns_with_strings, f, ensure_ascii=False, indent=4)
