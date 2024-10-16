@@ -38,16 +38,14 @@ jobs:
         run: |
           python -u coupus-extractor.py
 
-      - name: Commit files # commit the output folder
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
-          git config --local user.email "test@github.com"
-          git config --local user.name "GitHub Action test"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/davidgenders/regex_runner.git
           git add regexes_with_strings.json
-          git commit -m "Add output files"
-
-      - name: Push changes # push the output folder to your repo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
+          git commit -m "Add generated regexes_with_strings.json"
+          git push
           
