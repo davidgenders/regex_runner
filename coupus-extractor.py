@@ -24,7 +24,8 @@ def generate_invalid_string(pattern, max_attempts=1000):
 
         attempts += 1
 
-    raise ValueError("Failed to generate an invalid string within the max attempts.")
+    print("Failed to generate an invalid string within the max attempts.")
+    return None
 
 # JSON file name
 file_name = 'uniq-regexes-8.json'
