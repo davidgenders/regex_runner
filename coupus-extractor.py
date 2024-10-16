@@ -45,21 +45,21 @@ df = pd.DataFrame({
     'Valid String': [None] * len(regex_patterns),
     'Invalid String': [None] * len(regex_patterns)
 })
-x = Xeger()
+# x = Xeger()
 
-# Generate valid and invalid strings for each regex pattern
-for index, pattern in enumerate(regex_patterns):
-    try:
-        # Generate a valid string from the regex
-        valid_string = x.xeger(pattern)
-        df.at[index, 'Valid String'] = valid_string
+# # Generate valid and invalid strings for each regex pattern
+# for index, pattern in enumerate(regex_patterns):
+#     try:
+#         # Generate a valid string from the regex
+#         valid_string = x.xeger(pattern)
+#         df.at[index, 'Valid String'] = valid_string
         
-        # Generate an invalid string by slightly modifying the valid one
-        invalid_string = generate_invalid_string(pattern)
-        df.at[index, 'Invalid String'] = invalid_string
-    except Exception as e:
-        # Skip patterns that cannot be processed
-        print(f"Skipping pattern due to error: {pattern}, Error: {e}")
+#         # Generate an invalid string by slightly modifying the valid one
+#         invalid_string = generate_invalid_string(pattern)
+#         df.at[index, 'Invalid String'] = invalid_string
+#     except Exception as e:
+#         # Skip patterns that cannot be processed
+#         print(f"Skipping pattern due to error: {pattern}, Error: {e}")
 
 # Save the DataFrame to a JSON file
 df.to_json(os.path.join("regexes_with_strings.json"))
