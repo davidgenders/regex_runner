@@ -62,4 +62,5 @@ df = pd.DataFrame({
 #         print(f"Skipping pattern due to error: {pattern}, Error: {e}")
 
 # Save the DataFrame to a JSON file
-df.to_json(os.path.join("regexes_with_strings.json"), force_ascii=False)
+with open("regexes_with_strings.json", "w", encoding="utf-8") as f:
+    json.dump(df.to_dict(orient="records"), f, ensure_ascii=False, indent=4)
