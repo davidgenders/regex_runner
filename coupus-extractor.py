@@ -23,20 +23,14 @@ def generate_invalid_string(pattern, max_attempts=1000):
     raise ValueError("Failed to generate an invalid string within the max attempts.")
 
 
-# Get the directory of the current script
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
 # JSON file name
 file_name = 'uniq-regexes-8.json'
-
-# Full path to the JSON file
-file_path = os.path.join(script_dir, file_name)
 
 # Initialize an empty list to store patterns
 regex_patterns = []
 
 # Open the file and load each line as a JSON object
-with open(file_path, 'r') as f:
+with open(file_name, 'r') as f:
     for line in f:
         json_obj = json.loads(line.strip())  # Parse each line as JSON
         pattern = json_obj.get('pattern')   # Extract the pattern
@@ -68,4 +62,4 @@ for index, pattern in enumerate(regex_patterns):
         print(f"Skipping pattern due to error: {pattern}, Error: {e}")
 
 # Save the DataFrame to a JSON file
-df.to_json(os.path.join(script_dir, "regexes_with_strings.json"))
+df.to_json(os.path.join("regexes_with_strings.json"))

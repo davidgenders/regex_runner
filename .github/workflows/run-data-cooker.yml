@@ -1,0 +1,49 @@
+name: Data Cooker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-data-cooker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Check cache
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('Requirements.txt') }}-test1
+
+      - name: Install Dependencies 
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: pip install -r .DataCookerRequirements.txt
+
+      - name: Run
+        run: |
+          python -u coupus-extractor.py
+
+          - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add regexes_with_strings.json
+          git commit -m "Add generated regexes_with_strings.json"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
