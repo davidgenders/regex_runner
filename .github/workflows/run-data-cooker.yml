@@ -37,7 +37,7 @@ jobs:
         run: |
           python -u coupus-extractor.py
 
-          - name: Commit and Push Changes
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
