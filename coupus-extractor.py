@@ -33,7 +33,6 @@ file_name = 'uniq-regexes-8.json'
 # Initialize an empty list to store patterns with their valid and invalid strings
 patterns_with_strings = []
 
-counter = 0
 x = Xeger()
 
 # Open the file and load each line as a JSON object
@@ -59,10 +58,6 @@ with open(file_name, 'r') as f:
             except Exception as e:
                 # Skip patterns that cannot be processed
                 print(f"Skipping pattern due to error: {pattern}, Error: {e}")
-
-            
-            counter += 1
-            print(f"Processed patterns: {counter}")
 
             patterns_with_strings.append({
                     'Pattern': pattern,
