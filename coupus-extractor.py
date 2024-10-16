@@ -44,19 +44,19 @@ with open(file_name, 'r') as f:
         invalid_string = None
         # Process only if the pattern is a string
         if isinstance(pattern, str):
-            # try:
-            #     # Generate a valid string from the regex
+            try:
+                # Generate a valid string from the regex
                 
-            #     valid_string = x.xeger(pattern)
+                valid_string = x.xeger(pattern)
 
-            #     # Generate an invalid string by slightly modifying the valid one
-            #     invalid_string = generate_invalid_string(pattern)
+                # Generate an invalid string by slightly modifying the valid one
+                invalid_string = generate_invalid_string(pattern)
 
-            #     # Add the pattern with valid and invalid strings to the list
+                # Add the pattern with valid and invalid strings to the list
                 
-            # except Exception as e:
-            #     # Skip patterns that cannot be processed
-            #     print(f"Skipping pattern due to error: {pattern}, Error: {e}")
+            except Exception as e:
+                # Skip patterns that cannot be processed
+                print(f"Skipping pattern due to error: {pattern}, Error: {e}")
 
             patterns_with_strings.append({
                     'Pattern': pattern,
