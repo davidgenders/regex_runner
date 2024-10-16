@@ -57,5 +57,5 @@ with open(file_name, 'r') as f:
 
 # Save the list of patterns with strings to a JSON file
 output_file = 'regexes_with_strings.json'
-with open(output_file, 'w', encoding='utf-8') as f:
+with open(output_file, 'w', encoding='utf-8', errors='ignore') as f:
     json.dump(patterns_with_strings, f, ensure_ascii=False, indent=4)
